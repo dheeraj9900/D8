@@ -18,7 +18,7 @@ class Blog(models.Model):
   cardTitle = models.CharField(max_length=50)
   cardDescription = models.CharField(max_length=200)
   lastUpdated = models.DateTimeField(auto_now_add=True)
-  cardImage = models.ImageField(upload_to='images')
+  cardImage = models.ImageField(upload_to='images/')
   content = RichTextField(blank=True)
   blog_cat = models.ForeignKey(Category, on_delete=models.CASCADE)
   published_at = models.DateTimeField(auto_now_add=True, null=True)
