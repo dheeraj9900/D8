@@ -129,7 +129,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -141,3 +142,6 @@ STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+

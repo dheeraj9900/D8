@@ -10,7 +10,6 @@
     />
     <style>
       body {
-        /* background: linear-gradient(45deg, #12473d, #2be7c8, #abdbf7); */
         background-image: url(https://images.pexels.com/photos/434337/pexels-photo-434337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
         background-repeat: no-repeat;
         background-size: cover;
@@ -20,17 +19,17 @@
       .container {
         background: white;
         display: flex;
-        justify-content:end;
+        justify-content: end;
         align-items: start;
         flex-direction: column;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         border-radius: 24px;
         padding: 30px;
         text-align: center;
-        width: 900px;
-        margin-top: 150px;
+        width: 90%; /* Adjusted width for responsiveness */
+        max-width: 900px; /* Added max-width for larger screens */
+        margin: 150px auto; /* Center the container */
         color: white;
-        /* //glass */
         backdrop-filter: blur(16px) saturate(180%);
         -webkit-backdrop-filter: blur(16px) saturate(180%);
         background-color: rgba(17, 25, 40, 0.75);
@@ -42,6 +41,10 @@
         font-size: 40px;
         color: #ffffff;
         margin-bottom: 20px;
+      }
+
+      p.about-text {
+        text-align: justify;
       }
 
       input[type="text"],
@@ -70,8 +73,18 @@
         margin-top: 20px;
         font-size: 16px;
       }
-      .about-text {
-        text-align: justify;
+
+      /* Media Queries */
+      @media (max-width: 768px) {
+        .container {
+          width: 90%;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .container {
+          width: 95%;
+        }
       }
     </style>
   </head>
