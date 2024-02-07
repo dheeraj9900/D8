@@ -51,7 +51,6 @@ TINYMCE_DEFAULT_CONFIG = {
     'width': 920,
 }
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'members/images')]
 
 
 MIDDLEWARE = [
