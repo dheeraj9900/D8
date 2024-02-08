@@ -7,57 +7,84 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* Improved styling for the comment form */
         .comment-form {
-            background-color: rgb(203, 203, 203);
-            color: rgb(0, 0, 0);
+            background-color: #f8f9fa;
+            color: #212529;
             padding: 24px;
-            border-radius: 24px;
+            border-radius: 12px;
             width: 100%;
             max-width: 500px;
             margin: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        /* Centering the comment form and adjusting margin */
         .comment-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 200px;
-        }
-
-        p {
-            margin: 20px 0;
-        }
-
-        .container.text-center {
+            align-items: flex-start;
             margin-top: 20px;
         }
 
-        .container.text-center h3 {
-            margin-bottom: 10px;
+        /* Margin adjustments for the like buttons */
+        .container.text-center {
+            margin-top: 20px;
+            margin-bottom: 30px;
         }
 
+        /* Improved styling for the like buttons */
+        .container.text-center .btn {
+            margin-right: 10px;
+        }
+
+        /* Responsive adjustments for smaller screens */
         @media (max-width: 768px) {
             .comment-form {
                 width: 90%;
+                padding: 16px;
             }
 
             .comment-container {
                 flex-direction: column;
                 align-items: center;
             }
+
+            .container.text-center .btn {
+                margin-bottom: 10px;
+            }
         }
 
         @media (max-width: 576px) {
             .comment-form {
-                padding: 16px;
                 font-size: 14px;
+            }
+        }
+
+        /* Responsive adjustments for smaller screens - p tag */
+        @media (max-width: 576px) {
+            p {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
 
-<p>{{ blog.content | safe }}</p>
+<!-- Centered and formatted content using Bootstrap grid system -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <p>{{ blog.content | safe }}</p>
+        </div>
+    </div>
+</div>
 
+<!-- Improved layout for like buttons and counts -->
 <div class="container text-center">
     <a href="{% url 'likes' blog.id %}" class="btn btn-primary">Like</a>
     <div class="container text-center">
@@ -66,24 +93,25 @@
     </div>
 </div>
 
+<!-- Comment form and list -->
 <div class="comment-container">
     <div class="comment-form">
         <form method="post" action="{% url 'comments' blog.id %}">
             {% csrf_token %}
             {{ form.as_p }}
-            <h6 style="background-color:black ;color: white; padding: 12px; font-family: 'Times New Roman', Times, serif; font-size: large; display: inline-block; border-radius: 12px;">Enter your comment</h6>
             <div class="form-floating mb-3">
-                <label for="comment1" class="form-label"></label>
                 <input type="text" class="form-control" id="comment1" name="comment1" aria-describedby="namehelp" placeholder="Enter comment">
+                <label for="comment1">Enter your comment</label>
             </div>
             <button class="btn btn-dark" type="submit">
-                <i class="bi bi-send"></i>
+                <i class="bi bi-send"></i> Send
             </button>
         </form>
 
-        <ul class="list-group">
+        <!-- Improved styling for comments list -->
+        <ul class="list-group mt-3">
             {% for comment in comments_list %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li class="list-group-item d-flex justify-content-start align-items-center">
                     <span class="comm">
                         <i class="bi bi-arrow-return-right"></i>
                         {{ comment.body }}
@@ -94,6 +122,7 @@
     </div>
 </div>
 
+<!-- Bootstrap JS dependencies -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
