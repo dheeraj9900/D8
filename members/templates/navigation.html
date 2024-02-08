@@ -22,26 +22,27 @@
     margin-left: 5px;
   }
 
-  .container-fluid  {
+  .container-fluid {
     background-color: rgb(255, 255, 255);
-    border-radius: 24px;
+    /* border-radius: 24px; */
     position: absolute;
     width: fit-content;
     height: fit-content;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; */
   }
 
   .category-list {
     list-style-type: none;
-    margin-left: -45px;
-    margin-right: 20px;
+    /* margin-left: 40px; */
+    /* margin-right: 20px; */
+    /* padding: 20px; */
   }
   .nav-toggler{
     position: absolute;
   }
 
   .logout {
-    margin-left: 12px;
+    margin-left: 15px;
     background-color: #ffffff;
     border: 1px solid rgb(209, 213, 219);
     border-radius: 0.5rem;
@@ -83,15 +84,16 @@
   .button-38:focus-visible {
     box-shadow: none;
   }
+
 </style>
 
-<div class="container-fluid p-3">
+<div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-light">
     {% load static %}
 
-    <!-- <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="#">
       <img src="https://i.postimg.cc/Dwgz9XxC/Black-White-Minimalist-Logo.png" alt="logo" class="logo" />
-    </a> -->
+    </a>
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,54 +115,63 @@
         <li class="nav-item">
           <a class="nav-link sub text-dark" href="/home/subscribe/">Subscribe</a>
         </li>
+        <li class="nav-item">
+          <form class="form-inline my-2 my-lg-0 mr-2" method="post" action="{% url 'search' %}">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="prod_search">
+            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </li>
+        <li class="nav-item">
+          <div class="category-list">
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" id="categoryDropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Category
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="categoryDropdown">
+                {% for category in categories %}
+                <li class="dropdown-item">
+                  <a class="d-flex justify-content-between align-items-center" href="{% url 'category' category.id %}">
+                    <div>
+                      <h6 class="mb-1">{{ category.name }}</h6>
+                      <p class="mb-0 text-muted">{{ category.description }}</p>
+                    </div>
+                    <span class="badge badge-secondary">{{ category.count }}</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="navbar-nav ml-md-auto">
+            {% if user.is_authenticated %}
+            <form action="{% url 'login' %}" method="get">
+              {% csrf_token %}
+              <button class="logout">Logout</button>
+            </form>
+            {% else %}
+            <form action="{% url 'signup' %}" method="get">
+              {% csrf_token %}
+              <button class="logout">Sign Up</button>
+            </form>
+            <form action="{% url 'login' %}" method="get">
+              {% csrf_token %}
+              <button class="logout">Login</button>
+            </form>
+            {% endif %}
+          </div>
+        </li>
       </ul>
 
-      <div class="category-list">
-        <div class="dropdown">
-          <button class="btn dropdown-toggle" type="button" id="categoryDropdown" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Category
-          </button>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="categoryDropdown">
-            {% for category in categories %}
-            <li class="dropdown-item">
-              <a class="d-flex justify-content-between align-items-center" href="{% url 'category' category.id %}">
-                <div>
-                  <h6 class="mb-1">{{ category.name }}</h6>
-                  <p class="mb-0 text-muted">{{ category.description }}</p>
-                </div>
-                <span class="badge badge-secondary">{{ category.count }}</span>
-              </a>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
+      
 
       <!-- searchbar -->
-      <form class="form-inline my-2 my-lg-0 ml-auto" method="post" action="{% url 'search' %}">
-        {% csrf_token %}
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="prod_search">
-        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
-      </form>
+      
 
-      <div class="navbar-nav ml-md-auto">
-        {% if user.is_authenticated %}
-        <form action="{% url 'login' %}" method="get">
-          {% csrf_token %}
-          <button class="logout">Logout</button>
-        </form>
-        {% else %}
-        <form action="{% url 'signup' %}" method="get">
-          {% csrf_token %}
-          <button class="logout">Sign Up</button>
-        </form>
-        <form action="{% url 'login' %}" method="get">
-          {% csrf_token %}
-          <button class="logout">Login</button>
-        </form>
-        {% endif %}
-      </div>
+      
     </div>
   </nav>
 </div>
